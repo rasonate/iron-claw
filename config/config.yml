@@ -1,0 +1,83 @@
+general:
+  telemetry:
+    logging:
+      console:
+        _type: console
+        level: INFO
+
+llms:
+  nemotron_supervisor:
+    _type: nim
+    model_name: nvidia/nemotron-mini-4b-instruct
+    base_url: http://localhost:8000/v1
+    temperature: 0.0
+    max_tokens: 1536
+
+  nemotron_specialist:
+    _type: nim
+    model_name: nvidia/nemotron-mini-4b-instruct
+    base_url: http://localhost:8000/v1
+    temperature: 0.0
+    max_tokens: 1024
+
+function_groups:
+  # Optional: Connect an internal FinTech MCP server (e.g., ledger, market data, or core banking)
+  fintech_mcp_data:
+    _type: mcp_client
+    server:
+      transport: streamable-http
+      url: http://localhost:9901/mcp
+
+functions:
+  # Low-level atomic tools
+  portfolio_risk_tool:
+    _type: calculate_portfolio_risk
+    risk_free_rate: 0.065
+
+  aml_audit_tool:
+    _type: audit_transaction_aml
+    high_value_threshold: 1000000.0
+
+  policy_rag_tool:
+    _type: search_regulatory_policies
+    embed_url: http://localhost:8001/v1/embeddings
+    rerank_url: http://localhost:8002/v1/ranking
+    top_k_retrieve: 4
+    top_n_rerank: 2  
+
+  # Specialist Agent 1: Quantitative Risk Analyst
+  quant_analyst_agent:
+    _type: react_agent
+    description: "Delegate quantitative portfolio risk, Sharpe ratio, and Value-at-Risk (VaR) calculations to this specialist."
+    tool_names:
+      - portfolio_risk_tool
+    llm_name: nemotron_specialist
+    max_iterations: 4
+
+  # Specialist Agent 2: Compliance & AML Officer
+  compliance_officer_agent:
+    _type: react_agent
+    description: "Delegate AML/KYC transaction screening, threshold checks, and regulatory compliance audits to this specialist."
+    tool_names:
+      - aml_audit_tool
+    llm_name: nemotron_specialist
+    max_iterations: 4
+
+  policy_rag_agent:
+    _type: react_agent
+    description: "Delegate questions about internal credit policies, DSCR/LTV limits, LCR rules, and regulatory filings to this specialist."
+    tool_names:
+      - policy_rag_tool
+    llm_name: nemotron_specialist
+    max_iterations: 4  
+
+# Top-Level Supervisor Agent orchestrating the specialists
+workflow:
+  _type: react_agent
+  tool_names:
+    - quant_analyst_agent
+    - compliance_officer_agent
+    - policy_rag_agent
+  llm_name: nemotron_supervisor
+  max_iterations: 6
+  verbose: true
