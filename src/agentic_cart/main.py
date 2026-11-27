@@ -24,8 +24,8 @@ class NvidiaFintechOrchestrator:
 
 if __name__ == "__main__":
     orchestrator = NvidiaFintechOrchestrator(
-        nat_config="configs/multi_agent.yml",
-        rails_dir="configs/guardrails",
+        nat_config="config/config.yml",
+        rails_dir="config/guardrails",
     )
     prompt = (
         "Evaluate a portfolio worth 5,000,000 with 14% expected return and 18% volatility, "
