@@ -1,4 +1,4 @@
-# Iron Claw — NVIDIA FinTech Multi-Agent System
+# Iron Claw — FinTech Multi-Agent System
 
 A local-first, NVIDIA-native **FinTech Multi-Agent Assistant** built with **NVIDIA NIM**, **NeMo Agent Toolkit (`nvidia-nat`)**, **NeMo Guardrails**, **Qdrant**, and **FastAPI**.
 
