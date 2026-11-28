@@ -69,29 +69,11 @@ VaR answers: **"On 95% of days, what's the MOST I could lose?"**
 
 **Historical VaR (95%):** Sort all your past daily returns from worst to best. The return at the 5th percentile is your VaR.
 
-
-\[
-\text{VaR}_{95\%} = -\text{Percentile}_{5\%}(r_1, r_2, \ldots, r_N) \times V
-\]
-
 $$\text{VaR}_{95\%} = -\text{Percentile}_{5\%}(r_1, r_2, \ldots, r_N) \times V$$
 
 Where $V$ is your portfolio value.
 
 > **Example:** You have ₹10,00,000 invested. Historical VaR at 95% = ₹1,47,000. This means: "On 95% of trading days, you won't lose more than ₹1.47 lakh in a single day. But on that unlucky 5% of days? Could be worse."
-
-
-VaR answers: "On 95% of days, what's the MOST I could lose?"
-
-**Historical VaR (95%):** Sort all your past daily returns from worst to best. The return at the 5th percentile is your VaR.
-
-\[
-\text{VaR}_{95\%} = -\text{Percentile}_{5\%}(r_1, r_2, \ldots, r_N) \times V
-\]
-
-Where \(V\) is your portfolio value.
-
-**Example:** You have ₹10,00,000 invested. Historical VaR at 95% = ₹1,47,000. This means: "On 95% of trading days, you won't lose more than ₹1.47 lakh in a single day. But on that unlucky 5% of days? Could be worse."
 
 **Two methods we'll implement:**
 1. **Historical VaR** — Uses actual past returns (no assumptions about distribution shape)
