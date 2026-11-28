@@ -68,7 +68,9 @@ Where $R_f$ is the **risk-free rate** (what a government treasury bond pays — 
 VaR answers: **"On 95% of days, what's the MOST I could lose?"**
 
 **Historical VaR (95%):** Sort all your past daily returns from worst to best. The return at the 5th percentile is your VaR.
-
+\[
+\text{VaR}_{95\%} = -\text{Percentile}_{5\%}(r_1, r_2, \ldots, r_N) \times V
+\]
 
 $$\text{VaR}_{95\%} = -\text{Percentile}_{5\%}(r_1, r_2, \ldots, r_N) \times V$$
 
